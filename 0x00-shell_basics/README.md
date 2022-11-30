@@ -1,1 +1,1 @@
-Readme for 0x00-shell_basics
+Readme for 0x00 shell basics
