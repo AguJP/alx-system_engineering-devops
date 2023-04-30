@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Loop 10x, Print "bad luch" @loop4, "good luck =" @loop8, then
+# "Best School" for other loopos
+count=0
+while [ $count -lt 10 ]
+do
+if [ $count -eq 4 ]
+then
+echo "bad luck"
+elif [ $count -eq 8 ]
+then
+echo "good luck"
+fi
+echo "Best School"
+((count++))
+done
