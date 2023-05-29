@@ -1,0 +1,40 @@
+To design a three-server web infrastructure that hosts the website www.foobar.com, is secured, serves encrypted traffic, and is monitored, let's incorporate the required elements. Here is the  infrastructure:
+
+
+
+1. Server 1: This server hosts the web server (Nginx), application server, and monitoring client.
+
+2. Server 2: This server hosts a firewall and a monitoring client.
+
+3. Server 3: This server hosts the database (MySQL), a firewall, and a monitoring client.
+
+4. Firewalls: The firewalls are added to enhance the security of the infrastructure. They act as a barrier between the servers and the external network, controlling and filtering incoming and outgoing traffic based on predefined rules. Each server has its dedicated firewall to provide an additional layer of protection.
+
+5. SSL Certificate: An SSL certificate is added to enable HTTPS, which ensures encrypted communication between the users' browsers and the website. It provides data confidentiality, integrity, and authentication, protecting sensitive information transmitted over the network.
+
+6. Monitoring Clients: Monitoring clients are deployed on each server to collect data and send it to a monitoring service (such as Sumo Logic or other monitoring tools). These clients gather metrics, logs, and other relevant data to monitor the health, performance, and availability of the infrastructure.
+
+Now, let's address the specific aspects of this infrastructure:
+
+1. Firewalls: Firewalls are added to protect the servers from unauthorized access, network attacks, and potential security breaches. They control incoming and outgoing traffic based on predefined rules, ensuring that only legitimate and safe connections are allowed.
+
+2. HTTPS: Serving traffic over HTTPS is crucial for security. It encrypts the data transmitted between the users' browsers and the website, preventing unauthorized interception, tampering, or data leakage. It ensures the confidentiality and integrity of user data.
+
+3. Monitoring: Monitoring is used to track the health, performance, and availability of the infrastructure components. It helps identify issues, detect failures, and ensure proactive management. Monitoring tools collect data such as system metrics, logs, and application-specific metrics to provide insights into the infrastructure's performance and facilitate troubleshooting.
+
+4. Data Collection: The monitoring clients installed on each server collect various data points, including system metrics (CPU usage, memory usage, disk utilization), application logs, network traffic, and performance metrics. This data is then sent to the monitoring service, such as Sumo Logic, where it is processed, analyzed, and visualized for monitoring purposes.
+
+5. Web Server QPS Monitoring: To monitor the web server's query per second (QPS), you can configure the monitoring tool to collect metrics related to request volume, response times, and throughput. By analyzing these metrics, you can monitor the web server's performance, identify bottlenecks, and ensure optimal resource allocation.
+
+Now, let's discuss the issues with this infrastructure:
+
+1. Terminating SSL at the Load Balancer Level: Terminating SSL at the load balancer level means decrypting the SSL traffic at the load balancer and forwarding the unencrypted traffic to the backend servers. While this offloads the SSL processing from the servers, it also means that the communication between the load balancer and the servers is unencrypted. If there's a security concern, it's recommended to establish end-to-end encryption by enabling SSL on both the load balancer and the backend servers.
+
+2. Single MySQL Server Accepting Writes: Having only one MySQL server capable of accepting write operations introduces a single point of failure. If the MySQL server fails, it can lead to downtime and data unavailability. To improve resilience, consider implementing a database replication solution with a primary-replica (master-slave) cluster, where the write operations can be distributed among multiple replicas.
+
+3. Servers with the Same Components: Having servers with identical components
+
+ (database, web server, and application server) might limit scalability and increase the risk of resource contention. It's recommended to distribute these components across multiple servers to achieve better performance, scalability, and fault tolerance. For example, deploying multiple application servers behind the load balancer can handle increased traffic and provide redundancy.
+
+By addressing these issues, you can improve the security, reliability, and scalability of the infrastructure, ensuring encrypted traffic, multi-server redundancy, and effective monitoring.
+
