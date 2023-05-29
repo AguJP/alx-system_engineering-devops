@@ -1,0 +1,41 @@
+To design a three-server web infrastructure that hosts the website www.foobar.com, let's start with the existing components and add the necessary elements. Here is the updated infrastructure:
+
+
+
+1. Server 1: This server hosts the web server (Nginx) and the application server.
+
+2. Server 2: This server is added to provide redundancy and improve the infrastructure's reliability. It serves as a backup server in case Server 1 experiences any failures.
+
+3. Server 3: This server is added to host the database (MySQL). Separating the database server from the application server allows for better performance and scalability.
+
+4. Web Server (Nginx): The web server handles HTTP requests and serves static content to users. It remains on Server 1, similar to the previous design.
+
+5. Application Server: The application server runs the dynamic codebase and generates dynamic content in response to user requests. It remains on Server 1, similar to the previous design.
+
+6. Load Balancer (HAproxy): The load balancer distributes incoming user requests across multiple servers to achieve better performance, scalability, and high availability. HAproxy is configured as the load balancer in this infrastructure.
+
+7. Application Files: These files contain the website's codebase, including logic, functionality, and content. They reside on both Server 1 and Server 2 to ensure redundancy.
+
+8. Database (MySQL): The database server is separated from the application server to improve performance and scalability. MySQL is used as the database management system in this infrastructure.
+
+Now, let's address the specific aspects of this infrastructure:
+
+1. Distribution Algorithm: The load balancer (HAproxy) is configured with a distribution algorithm called round-robin. It evenly distributes incoming requests across Server 1 and Server 2 in a cyclic manner. Each request is forwarded to the next available server in the rotation.
+
+2. Active-Active vs. Active-Passive Setup: The load balancer enables an active-active setup. In this configuration, both Server 1 and Server 2 actively handle user requests. If one server fails, the other server continues to serve requests, ensuring high availability. This setup utilizes resources efficiently.
+
+3. Primary-Replica (Master-Slave) Database Cluster: The database is configured as a primary-replica (master-slave) cluster. The primary node (Server 3) handles read and write operations, while the replica node (Server 2) replicates data from the primary node. This configuration provides data redundancy and improves read scalability.
+
+4. Difference between Primary and Replica Node: The primary node in the database cluster (Server 3) handles read and write operations. It is responsible for executing write queries and ensuring data consistency. The replica node (Server 2) replicates data from the primary node and primarily handles read queries. It serves as a backup in case the primary node fails and can take over as the primary node if necessary.
+
+Now, let's discuss the issues with this infrastructure:
+
+1. Single Points of Failure (SPOF): Although this infrastructure introduces redundancy with Server 2 and the database replication, Server 1 remains a single point of failure. If Server 1 fails, the website and application become inaccessible. Additionally, if the primary node (Server 3) fails, there can be a temporary loss of database availability until the replica node (Server 2) takes over.
+
+2. Security Issues: The infrastructure currently lacks a firewall and HTTPS configuration. A firewall helps protect against unauthorized access and malicious attacks, while HTTPS ensures secure communication between the users and the website. Implementing these security measures is crucial to safeguard the infrastructure and user data.
+
+3. Monitoring: The infrastructure lacks a monitoring system to track the performance, health, and availability of the servers, load balancer
+
+, and database. Monitoring is essential to identify issues, detect failures, and ensure proactive management of the infrastructure.
+
+To address these issues, it's recommended to add additional measures such as implementing a firewall, enabling HTTPS, and setting up a monitoring system to enhance security, reliability, and proactive management of the infrastructure.
