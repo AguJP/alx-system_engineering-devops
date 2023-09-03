@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Add ServerName to Apache Config file
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Start Apache services
+service apache2 start
