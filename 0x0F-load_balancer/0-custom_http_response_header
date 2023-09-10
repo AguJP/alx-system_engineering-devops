@@ -4,17 +4,14 @@
 
 sudo apt-get update
 sudo apt-get install -y nginx
-sudo ufw allow 'Nginx HTTP'
 
-sudo mkdir -p /var/www/html /var/www/error
-sudo chmod -R 755 /var/www
-
+# Create index page
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 #creating a 404 error page
-
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
+#Perform a redirection
 replacement_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/AguJP permanent;"
 sudo sed -i "s/server_name _;/$replacement_string/" /etc/nginx/sites-enabled/default
 
