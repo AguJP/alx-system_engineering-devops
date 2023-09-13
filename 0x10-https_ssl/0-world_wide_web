@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Display domain and subdomain information
 # Usage: ./1-world_wide_web <domain> <subdomains>
 
